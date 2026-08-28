@@ -1,1 +1,4 @@
-﻿Console.WriteLine("Hello, World!");
+﻿
+using SalesReportApp;
+
+SalesLogic.WelcomeMessage();
