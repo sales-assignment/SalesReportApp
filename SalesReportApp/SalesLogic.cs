@@ -9,6 +9,7 @@ internal class SalesLogic
     static List<string> productList = [];
     static List<decimal> priceList = [];
     static int totalProducts = 0;
+    static decimal totalPrice = 0;
 
     public static void WelcomeMessage()
     {
@@ -16,6 +17,7 @@ internal class SalesLogic
 
         do
         {
+            Console.Clear();
             Console.WriteLine("#### FÖRSÄLJNINGSRAPPORT ####");
             Console.Write("Ange produktnamn, eller skriv 'klar': ");
 
@@ -27,7 +29,9 @@ internal class SalesLogic
             }
             else if (userInput.ToLower()== "klar")
             {
-                isRunning = false;
+                EndofDayReport();
+                Thread.Sleep(2000);
+                Environment.Exit(0);
             }
             else
             {
@@ -41,27 +45,42 @@ internal class SalesLogic
                 {
                     productList.Add(userInput);
                     priceList.Add(value);
+                    totalPrice += value;
                     totalProducts++;
                 }
             }
             ViewSavedItems();
+            
             
         }
         while(isRunning);
     }
     public static void ViewSavedItems()
     {
+        Console.WriteLine("");
+        Console.WriteLine("DAGENS FÖRSÄLJNINGAR:");
+
         for (int i = 0; i < productList.Count; i++)
         {
-            Console.WriteLine("");
             Console.WriteLine($"{productList[i]}: {priceList[i]}kr.");
             Console.WriteLine("");
-            Console.WriteLine($"Antal sålda produkter {totalProducts}st.");
         }
+        Console.WriteLine($"Antal sålda produkter {totalProducts}st.");
+        Console.WriteLine("");
+        Console.WriteLine($"Totala summan av försäljning: {totalPrice}kr.");
+        Console.WriteLine("Tryck valfri knapp för att fortsätta");
+        Console.ReadKey();
     }
     public static void ErrorMessage()
     {
+        Console.Clear();
         Console.WriteLine("Du har skrivit in fel, försök igen!");
+    }
+    public static void EndofDayReport()
+    {
+        
+
+
     }
 
 }
