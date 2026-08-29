@@ -10,8 +10,9 @@ internal class SalesLogic
     static List<decimal> priceList = [];
     static int totalProducts = 0;
     static decimal totalPrice = 0;
+    static int strongSale = 0;
 
-    public static void WelcomeMessage()
+    public static void SalesInteraction()
     {
         bool isRunning = true;        
 
@@ -47,11 +48,13 @@ internal class SalesLogic
                     priceList.Add(value);
                     totalPrice += value;
                     totalProducts++;
+                    if(value > 1000)
+                    {
+                        strongSale++;
+                    }
                 }
             }
             ViewSavedItems();
-            
-            
         }
         while(isRunning);
     }
@@ -78,9 +81,29 @@ internal class SalesLogic
     }
     public static void EndofDayReport()
     {
-        
-
-
+        decimal averageSale = 0;
+        if (productList.Count > 0)
+        {
+            averageSale = totalPrice / totalProducts;
+        }
+        Console.Clear();
+        Console.WriteLine("SAMMANFATTNING DAGENSFÖRSÄLJNING");
+        Console.WriteLine("");
+        Console.WriteLine($"Antal försäljningar: {totalProducts}st.");
+        Console.WriteLine($"Total försäljning: {totalPrice}kr.");
+        Console.WriteLine($"Genomsnittlig försäljning: {averageSale}kr.");
+        Console.WriteLine($"Försäljningar över 1000kr: {strongSale}st.");
+        if(totalPrice <= 5000)
+        {
+            Console.WriteLine("Resultat: Svag försäljningsdag.");
+        }
+        else if (totalPrice >= 10000)
+        {
+            Console.WriteLine("Resultat: Stark försäljningsdag.");
+        }
+        else
+        {
+            Console.WriteLine("Resultat: Normal försäljningsdag.");
+        }
     }
-
 }

@@ -1,4 +1,4 @@
 ﻿
 using SalesReportApp;
 
-SalesLogic.WelcomeMessage();
+SalesLogic.SalesInteraction();
